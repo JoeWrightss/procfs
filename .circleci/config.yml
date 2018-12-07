@@ -2,6 +2,12 @@
 version: 2.1
 
 commands:
+  linux-no-fmt:
+    steps:
+    - run: make check_license vet test staticcheck
+  windows-no-fmt:
+    steps:
+    - run: make check_license vet staticcheck
   linux:
     steps:
     - run: make style check_license vet test staticcheck
@@ -31,7 +37,7 @@ workflows:
     jobs:
     - test:
         name: linux-1-10
-        os: linux
+        os: linux-no-fmt
         go_version: "1.10"
     - test:
         name: linux-1-11
@@ -39,7 +45,7 @@ workflows:
         go_version: "1.11"
     - test:
         name: windows-1-10
-        os: windows
+        os: windows-no-fmt
         go_version: "1.10"
     - test:
         name: windows-1-11
